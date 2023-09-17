@@ -17,4 +17,4 @@ The University provided the imperative code to the algorithm and was used as a f
 **License**
 ------------
 
-This project is licensed under the [MIT License] License - see [LICENSE.md] for more details
+This project is licensed under the [MIT License] License - see LICENSE for more details
