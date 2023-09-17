@@ -1,0 +1,91 @@
+import unittest
+import sys
+
+# Fetch the largest possible value Python can store.
+NO_PATH = sys.maxsize
+
+graph = [[0, 7, NO_PATH, 8],
+         [NO_PATH, 0, 5, NO_PATH],
+         [NO_PATH, NO_PATH, 0, 2],
+         [NO_PATH, NO_PATH, NO_PATH, 0]]
+
+# Calculates the number of nodes inputted in the graph.
+MAX_LENGTH = len(graph[0])
+
+# Floyd Warshall's Algorithm using recursion.
+def floyd_recursion(distance):
+    # This recursive formulae determines the shortest path between two nodes.
+    def shortest_path(start, end, intermediate):
+
+        # Exits the recursion where the intermediate node matches the root node.
+        if intermediate <0:
+            return distance[start][end]
+
+        # Return the minimum distance between two paths:
+        # If the indirect route is shorter, return it.
+        return min(shortest_path(start, end, intermediate - 1),
+               shortest_path(start, intermediate, intermediate - 1) +
+               shortest_path(intermediate, end, intermediate - 1))
+
+    # Updates the graph
+    for intermediate in range(MAX_LENGTH):
+        for start in range(MAX_LENGTH):
+            for end in range(MAX_LENGTH):
+                distance[start][end] = shortest_path(start, end, intermediate)
+    return distance
+
+# Store the result.
+path = floyd_recursion(graph)
+
+# Display the path in a user-friendly way.
+print("The shortest path for each node is:")
+for recursion in path:
+    print(recursion)
+
+# The code for floyd_recursion and graph setup here...
+
+class TestFloydRecursion(unittest.TestCase):
+
+    def setUp(self):
+        # Initialize a test graph for each test case.
+        self.test_graph = [[0, 7, NO_PATH, 8],
+                           [NO_PATH, 0, 5, NO_PATH],
+                           [NO_PATH, NO_PATH, 0, 2],
+                           [NO_PATH, NO_PATH, NO_PATH, 0]]
+
+    def test_floyd_recursion(self):
+        expected_result = [
+            [0, 7, 12, 8],
+            [12, 0, 5, 10],
+            [14, 21, 0, 2],
+            [16, 23, 7, 0]
+        ]
+        result = floyd_recursion(self.test_graph)
+        self.assertEqual(result, expected_result)
+
+class TestShortestPath(unittest.TestCase):
+
+    def test_shortest_path(self):
+        test_distance = [
+            [0, 7, sys.maxsize, 8],
+            [sys.maxsize, 0, 5, sys.maxsize],
+            [sys.maxsize, sys.maxsize, 0, 2],
+            [sys.maxsize, sys.maxsize, sys.maxsize, 0]
+        ]
+
+        # Test with specific cases
+        def test_shortest_path(self):
+            # Test with specific cases
+            self.assertEqual(shortest_path(0, 1, 2, self.test_graph), 7)
+            self.assertEqual(shortest_path(1, 2, 2, self.test_graph), 5)
+            self.assertEqual(shortest_path(0, 2, 2, self.test_graph), 12)
+            self.assertEqual(shortest_path(2, 3, 2, self.test_graph), 2)
+
+        # Test with the same start and end node
+            self.assertEqual(shortest_path(0, 0, 2, self.test_graph), 0)
+            self.assertEqual(shortest_path(1, 1, 2, self.test_graph), 0)
+            self.assertEqual(shortest_path(2, 2, 2, self.test_graph), 0)
+            self.assertEqual(shortest_path(3, 3, 2, self.test_graph), 0)
+
+if __name__ == '__main__':
+    unittest.main()
