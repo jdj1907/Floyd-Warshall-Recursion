@@ -1,0 +1,102 @@
+# IMPERATIVE
+print("Imperative Version")
+import sys
+import itertools
+import time
+
+nopath = sys.maxsize
+graph = [[0, 7, nopath, 8],
+[nopath, 0, 5, nopath],
+[nopath, nopath, 0, 2],
+[nopath, nopath, nopath, 0]]
+MAX_LENGTH = len(graph[0])
+
+def floyd(distance):
+    for intermediate, start_node,end_node in \
+            itertools.product(range(MAX_LENGTH),range(MAX_LENGTH),
+range(MAX_LENGTH)):
+        if start_node == end_node:
+            distance[start_node][end_node] = 0
+            continue
+
+        distance[start_node][end_node] = min(distance[start_node][end_node],
+        					distance[start_node][intermediate] + distance[intermediate][end_node])
+    print(distance)
+
+floyd(graph)
+
+# RECURSIVE
+print("Recursive Version")
+import sys
+import itertools
+
+# Fetch the largest possible value Python can store.
+nopath = sys.maxsize
+
+graph = [[0, 7, nopath, 8],
+         [nopath, 0, 5, nopath],
+         [nopath, nopath, 0, 2],
+         [nopath, nopath, nopath, 0]]
+
+# Calculates the number of nodes inputted in the graph.
+MAX_LENGTH = len(graph[0])
+
+# Floyd Warshall's Algorithm using recursion.
+def floyd_recursion(distance):
+    # This recursive formulae determines the shortest path between two nodes.
+    def shortest_path(start, end, intermediate):
+
+        # Exits the recursion where the intermediate node matches the root node.
+        if intermediate < 0:
+            return distance[start][end]
+
+        # Return the minimum distance between two paths:
+        # If the indirect route is shorter, return it.
+        return min(shortest_path(start, end, intermediate - 1),
+               shortest_path(start, intermediate, intermediate - 1) +
+               shortest_path(intermediate, end, intermediate - 1))
+
+    # Updates the graph
+    for intermediate in range(MAX_LENGTH):
+        for start in range(MAX_LENGTH):
+            for end in range(MAX_LENGTH):
+                distance[start][end] = shortest_path(start, end, intermediate)
+    return distance
+
+# Store the result.
+path = floyd_recursion(graph)
+
+# Display the path in a user-friendly way.
+print("The shortest path for each node is:")
+for recursion in path:
+    print(recursion)
+
+def performance_check():
+    #Checks performance based on 10,000 cycles
+    cycle = 10000
+    time_start = time.time()
+    for _ in range(cycle):
+        floyd(graph)
+    time_end = time.time()
+    speed_imperative = time_end - time_start
+
+    time_start = time.time()
+    for _ in range(cycle):
+        floyd_recursion(graph)
+    time_end = time.time()
+    speed_recursion = time_end - time_start
+
+    return (speed_imperative, speed_recursion)
+
+round_imperative_speed, round_recursion_speed = performance_check()
+rounded_imperative_speed = round(round_imperative_speed, 2)
+rounded_recursion_speed = round(round_recursion_speed, 2)
+
+print("After running 10,000 cycles, the execution times are:\n Imperative:", rounded_imperative_speed, "\n Recursive:", rounded_recursion_speed)
+
+if rounded_imperative_speed < round_recursion_speed:
+    difference = round_recursion_speed - rounded_imperative_speed
+    print("The Imperative version is", difference.__round__(2), "seconds faster")
+else:
+    difference = rounded_imperative_speed - round_recursion_speed
+    print("The Recursive version is", difference.__round__(2), "seconds faster")
