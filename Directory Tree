@@ -10,7 +10,7 @@ Main
 │   ├── imperative.py
     |---recursion.py
 │   
-├── Tests
+├── Testing/
    ├── Unittest_General.py
    ├── Unittest_Input_Error.py
    ├── Unittest_Graph_Size.py
