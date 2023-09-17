@@ -6,7 +6,7 @@ Main
 |____requirements.txt
 |____README.md
 |
-├── FLoyd_Warshall_Code/
+├── Floyd_Warshall_Code/
 │   ├── imperative.py
     |---recursion.py
 │   
