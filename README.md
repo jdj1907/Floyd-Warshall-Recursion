@@ -3,8 +3,8 @@ An assignment by The University of Liverpool to re-write the Floyd-Warshall algo
 
 
 This repository contains the code for an assignment set by The University of Liverpool to rewrite the Floyd-Warshall algorithm to use recursion.
-**Before you begin
-**
+
+**Before you begin**
 The code used in this assignment requires Python version 3 to be installed to run the code
 
 **Getting Started**
