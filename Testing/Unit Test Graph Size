@@ -1,0 +1,36 @@
+import sys
+import unittest
+class TestGraph(unittest.TestCase):
+    def test_graph_format(self):
+        NO_PATH = sys.maxsize
+        MAX_LENGTH = 4
+        graph = [[0, 7, NO_PATH, 8],
+                 [NO_PATH, 0, 5, NO_PATH],
+                 [NO_PATH, NO_PATH, 0, 2],
+                 [NO_PATH, NO_PATH, NO_PATH, 0]]
+
+        # Check number of rows
+        self.assertEqual(len(graph), MAX_LENGTH)
+
+        for row in graph:
+        # Check number of columns
+            self.assertEqual(len(row), MAX_LENGTH)
+
+class TestGraphExtraNodes(unittest.TestCase):
+    def test_graph_extra_nodes_format(self):
+        NO_PATH = sys.maxsize
+        MAX_LENGTH = 4
+        graph = [[0, 7, NO_PATH, 8, 9],
+                 [NO_PATH, 0, 5, NO_PATH, 10],
+                 [NO_PATH, NO_PATH, 0, 2, NO_PATH],
+                 [NO_PATH, NO_PATH, NO_PATH, 0, 2]]
+
+        # Check number of rows
+        self.assertEqual(len(graph), MAX_LENGTH)
+
+        for row in graph:
+        # Check number of columns
+            self.assertEqual(len(row), MAX_LENGTH)
+
+if __name__ == '__main__':
+    unittest.main()
