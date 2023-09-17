@@ -1,0 +1,17 @@
+import unittest
+import sys
+from Recursion import floyd_recursion
+
+
+class TestFloydRecursionFailure(unittest.TestCase):
+    def test_input_error(self):
+        NO_PATH = sys.maxsize
+        graph = [[0, 7, NO_PATH, "seven"],
+                 [NO_PATH, 0, 5, NO_PATH],
+                 [NO_PATH, NO_PATH, 0, 2],
+                 [NO_PATH, NO_PATH, NO_PATH, 0]]
+        with self.assertRaises(TypeError):
+            result = floyd_recursion(graph)
+
+if __name__ == '__main__':
+    unittest.main()
