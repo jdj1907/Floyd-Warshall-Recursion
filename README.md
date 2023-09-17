@@ -17,4 +17,4 @@ The University provided the imperative code to the algorithm and was used as a f
 **License**
 ------------
 
-This project is licensed under the [MIT License] License - see [LICENSE](https://github.com/jdj1907/Floyd-Warshall-Recursion/blob/9bf62b31387880ef111fe643a1fc685f9335386f/LICENSE)https://github.com/jdj1907/Floyd-Warshall-Recursion/blob/9bf62b31387880ef111fe643a1fc685f9335386f/LICENSE for more details
+This project is licensed under the [MIT License] License - see LICENSE section for more details
