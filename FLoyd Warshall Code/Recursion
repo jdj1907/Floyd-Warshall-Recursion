@@ -1,0 +1,44 @@
+# RECURSIVE
+print("Recursive Version")
+import sys
+
+# Fetch the largest possible value Python can store.
+NO_PATH = sys.maxsize
+
+graph = [[0, 7, NO_PATH, 8],
+         [NO_PATH, 0, 5, NO_PATH],
+         [NO_PATH, NO_PATH, 0, 2],
+         [NO_PATH, NO_PATH, NO_PATH, 0]]
+
+# Calculates the number of nodes inputted in the graph.
+MAX_LENGTH = len(graph[0])
+
+# Floyd Warshall's Algorithm using recursion.
+def floyd_recursion(distance):
+    # This recursive formulae determines the shortest path between two nodes.
+    def shortest_path(start, end, intermediate):
+
+        # Exits the recursion where the intermediate node matches the root node.
+        if intermediate <0:
+            return distance[start][end]
+
+        # Return the minimum distance between two paths:
+        # If the indirect route is shorter, return it.
+        return min(shortest_path(start, end, intermediate - 1),
+               shortest_path(start, intermediate, intermediate - 1) +
+               shortest_path(intermediate, end, intermediate - 1))
+
+    # Updates the graph
+    for intermediate in range(MAX_LENGTH):
+        for start in range(MAX_LENGTH):
+            for end in range(MAX_LENGTH):
+                distance[start][end] = shortest_path(start, end, intermediate)
+    return distance
+
+# Store the result.
+path = floyd_recursion(graph)
+
+# Display the path in a user-friendly way.
+print("The shortest path for each node is:")
+for recursion in path:
+    print(recursion)
